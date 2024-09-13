@@ -30,5 +30,6 @@ class Interpretation:
         original_upper , original_lower = original_hexagram[:3], original_hexagram[3:]
         mutual_upper, mutual_lower = mutual_hexagram[:3], mutual_hexagram[3:]
         changed_upper, changed_lower = changed_hexagram[:3], changed_hexagram[3:]
+        raise NotImplementedError("还没写完")
         
         

@@ -7,7 +7,7 @@ try:
     import sys
 except ImportError:
     import subprocess
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "lunardate"])
+    subprocess.check_call([sys.executable, "-m", "pip", "install", '-r', 'requirements.txt'])
     from ..requires import LunarDate
 
 class Divination:
