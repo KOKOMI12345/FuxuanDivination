@@ -61,7 +61,7 @@ class Divination:
         """
         获取上卦
         算法为:
-        (年 + 农历月 + 农历日) \ 8 = result ... 余数确定 (卦以八除)
+        (年 + 农历月 + 农历日) / 8 = result ... 余数确定 (卦以八除)
         """
         year_zhi = self.get_year_zhi()
         ld_date = self.get_lunar_day_and_month()
