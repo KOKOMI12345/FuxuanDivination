@@ -1,6 +1,6 @@
 
 from ..metadata import print_logo_and_some_infomation
-from ..utils import NOW, ZHI_TO_TIME, ZHI_NUM, HEXGRAM_DESCRIPTION, YANG, YIN , get_gan_zhi_from_year
+from ..utils import NOW, ZHI_TO_TIME, ZHI_NUM, HEXGRAM_DESCRIPTION, YANG, YIN , get_gan_zhi_from_year , DIZHI
 
 try:
     from ..requires import LunarDate
@@ -30,16 +30,15 @@ class Divination:
         """
         根据公历年份获取对应的地支
         """
-        zhi = [
-            "子", "丑", "寅", "卯", "辰", "巳",
-            "午", "未", "申", "酉", "戌", "亥"
-        ]
         # 1984年是甲子年，用当前年份减去1984，然后取余数确定地支
         year = NOW.year
         index = (year - 1984) % 12
-        return zhi[index]
+        return DIZHI[index]
     
     def get_current_zhi_and_num(self) -> tuple[str, int]:
+        """
+        获取当前的时辰和时辰数
+        """
         current_hour = NOW.hour
         for zhi, (start, end, day_zhi_num) in ZHI_TO_TIME.items():
             if start <= current_hour < end:
@@ -61,11 +60,17 @@ class Divination:
     def get_upper_hexgram(self) -> tuple[str, str, str]:
         """
         获取上卦
+        算法为:
+        (年 + 农历月 + 农历日) \ 8 = result ... 余数确定 (卦以八除)
         """
         year_zhi = self.get_year_zhi()
+        ld_date = self.get_lunar_day_and_month()
         zhi_num = ZHI_NUM[year_zhi]
-        upper_hexgram = HEXGRAM_DESCRIPTION[zhi_num]
-        return upper_hexgram
+        remainder = (zhi_num + ld_date[0] + ld_date[1]) % 8
+        if remainder == 0: # 坤卦
+            return HEXGRAM_DESCRIPTION[8]
+        else:
+            return HEXGRAM_DESCRIPTION[remainder]
 
     def get_lower_hexagram(self) -> tuple[str, str, str]:
         """
