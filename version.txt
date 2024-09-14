@@ -1,0 +1,36 @@
+# UTF-8
+VSVersionInfo(
+  ffi=FixedFileInfo(
+    # 文件版本和产品版本
+    filevers=(2, 0, 0, 0),
+    prodvers=(2, 0, 0, 0),
+    # 文件OS和文件类型
+    mask=0x3f,
+    flags=0x0,
+    OS=0x40004,
+    fileType=0x1,
+    subtype=0x0,
+    # 日期和时间戳
+    date=(0, 0)
+    ),
+  kids=[
+    StringFileInfo(
+      [
+        StringTable(
+          u'040904B0',  # 语言和代码页设置为中文简体
+          [
+            StringStruct(u'CompanyName', u'符玄(KOKOMI12345)'),
+            StringStruct(u'FileDescription', u'一个基于《易经》的卦象占卜程序'),
+            StringStruct(u'FileVersion', u'2.0.0.0'),
+            StringStruct(u'InternalName', u'占卜程序'),
+            StringStruct(u'LegalCopyright', u'Copyright (c) 2024 符玄(KOKOMI12345)'),
+            StringStruct(u'OriginalFilename', u'占卜.exe'),
+            StringStruct(u'ProductName', u'梅花易数'),
+            StringStruct(u'ProductVersion', u'2.0-alpha')
+          ]
+        )
+      ]
+    ),
+    VarFileInfo([VarStruct(u'Translation', [2052, 1200])])  # 这里指定中文简体的语言代码
+  ]
+)

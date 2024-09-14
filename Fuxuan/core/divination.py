@@ -144,18 +144,22 @@ class Divination:
 
         return original_hexagram_str, mutual_hexagram_str, changed_hexagram_str
     
-    def run(self, question: str) -> None:
+    def run(self, question: str,return_result: bool = False) -> None:
         """
         主程序入口
         """
         print(f"您的问题：{question}")
         hexagram = self.build_hexagram()
         year_gan , year_zhi = get_gan_zhi_from_year(NOW.year)
-        print(f"占卜时间: {NOW.strftime('%Y-%m-%d %H:%M:%S')}({year_gan}{year_zhi}年)({self.get_current_zhi_and_num()[0]})")
-        print("对于你的问题,卦象情况如下:\n")
-        print(f"本卦: \n{hexagram[0]}")
-        print(f"互卦: \n{hexagram[1]}")
-        print(f"变卦: \n{hexagram[2]}")
+        result = f"占卜时间: {NOW.strftime('%Y-%m-%d %H:%M:%S')}({year_gan}{year_zhi}年)({self.get_current_zhi_and_num()[0]})"
+        result +="对于你的问题,卦象情况如下:\n"
+        result += f"本卦: \n{hexagram[0]}\n"
+        result += f"互卦: \n{hexagram[1]}\n"
+        result += f"变卦: \n{hexagram[2]}"
+        if return_result:
+            return result
+        else:
+            print(result)
 
 if __name__ == '__main__':
     pass
