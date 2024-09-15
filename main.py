@@ -3,7 +3,7 @@ from Fuxuan import Divination
 from Fuxuan import Interpretation
 
 # build exe file command:
-# pyinstaller -F --version-file version.txt main.py -i F:\python_play\pixiv\dist\符玄表情包\img5.gif
+# pyinstaller -F --version-file version.txt main.py -i resources/icon.ico --name "占卜" --add-data "resources;resources"
 
 if __name__ == '__main__':
     divination = Divination()
