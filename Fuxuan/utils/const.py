@@ -105,3 +105,29 @@ HEXGRAM_TO_WUXING = {
     "艮": "土",  # 艮为山，山的五行属性与土相关
     "坤": "土"   # 坤为地，地的五行属性与土相关
 }
+
+RELATION_TO_LUCK = {
+    ("体", "比合", "用"): "吉",
+    ("体", "生", "用"): "小凶",
+    ("用", "生", "体"): "大吉",
+    ("体", "克", "用"): "小吉",
+    ("用", "克", "体"): "大凶"
+}
+
+# 初始化关系字典
+WUXING_RELATION: dict[tuple[str, str], tuple[str, str, str]] = {}
+
+# 动态生成关系字典
+def generate_wuxing_relation():
+    for hex_ti, wuxing_ti in HEXGRAM_TO_WUXING.items():
+        for hex_yong, wuxing_yong in HEXGRAM_TO_WUXING.items():
+            if wuxing_ti == wuxing_yong:
+                WUXING_RELATION[(hex_ti, hex_yong)] = ("体", "比合", "用")
+            elif WUXING[wuxing_ti]['生'] == wuxing_yong:
+                WUXING_RELATION[(hex_ti, hex_yong)] = ("体", "生", "用")
+            elif WUXING[wuxing_yong]['生'] == wuxing_ti:
+                WUXING_RELATION[(hex_ti, hex_yong)] = ("用", "生", "体")
+            elif WUXING[wuxing_ti]['克'] == wuxing_yong:
+                WUXING_RELATION[(hex_ti, hex_yong)] = ("体", "克", "用")
+            elif WUXING[wuxing_yong]['克'] == wuxing_ti:
+                WUXING_RELATION[(hex_ti, hex_yong)] = ("用", "克", "体")

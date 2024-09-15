@@ -46,7 +46,7 @@ class Divination:
             # 处理子时（23:00 - 01:00）和跨越日期分界的情况
             if zhi == "子时" and (current_hour >= 23 or current_hour < 1):
                 return zhi , day_zhi_num
-        return "未知时辰"
+        return "未知时辰" , 0
     
     def get_current_zhi_and_num_by_lunar(self) -> tuple[str, int]:
         """
@@ -117,10 +117,10 @@ class Divination:
         else:
             changed_hexagram[5] = self.get_changed_yao(changed_hexagram[5])
 
-        return tuple(changed_hexagram)  # 将列表转换回元组
+        return tuple(changed_hexagram)  # type: ignore
         
 
-    def build_hexagram(self) -> tuple:
+    def build_hexagram(self) -> tuple[tuple, tuple, tuple]:
         """
         构建卦象，包括本卦、互卦和变卦
         """
@@ -137,14 +137,9 @@ class Divination:
         # 变卦
         changed_hexagram = self.get_changed_hexagram(original_hexagram)
 
-        # 接下来用字符串表示卦象
-        original_hexagram_str = "\n".join(original_hexagram)
-        mutual_hexagram_str = "\n".join(mutual_hexagram)
-        changed_hexagram_str = "\n".join(changed_hexagram)
-
-        return original_hexagram_str, mutual_hexagram_str, changed_hexagram_str
+        return original_hexagram, mutual_hexagram, changed_hexagram
     
-    def run(self, question: str,return_result: bool = False) -> None:
+    def run(self, question: str) -> tuple[tuple, str]:
         """
         主程序入口
         """
@@ -155,11 +150,9 @@ class Divination:
         result +="对于你的问题,卦象情况如下:\n"
         result += f"本卦: \n{hexagram[0]}\n"
         result += f"互卦: \n{hexagram[1]}\n"
-        result += f"变卦: \n{hexagram[2]}"
-        if return_result:
-            return result
-        else:
-            print(result)
+        result += f"变卦: \n{hexagram[2]}\n"
+        return hexagram , result
+        
 
 if __name__ == '__main__':
     pass

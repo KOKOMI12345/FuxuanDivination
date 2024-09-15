@@ -26,7 +26,7 @@ VSVersionInfo(
             StringStruct(u'LegalCopyright', u'Copyright (c) 2024 符玄(KOKOMI12345)'),
             StringStruct(u'OriginalFilename', u'占卜.exe'),
             StringStruct(u'ProductName', u'梅花易数'),
-            StringStruct(u'ProductVersion', u'2.0-alpha')
+            StringStruct(u'ProductVersion', u'2.0-beta')
           ]
         )
       ]

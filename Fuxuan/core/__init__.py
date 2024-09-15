@@ -1,6 +1,6 @@
 
 from .divination import Divination
-from . import excformat
 from .interpretation import Interpretation
+from . import excformat
 
 __all__ = ['Divination', 'excformat', 'Interpretation']
