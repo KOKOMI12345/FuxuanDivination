@@ -1,6 +1,7 @@
 
-from .divination import Divination
+from .TimeDivination import TimeDivination
 from .interpretation import Interpretation
+from .NumDivination import NumDivination , Num
 from . import excformat
 
-__all__ = ['Divination', 'excformat', 'Interpretation']
+__all__ = ['TimeDivination', 'excformat', 'Interpretation', 'NumDivination', 'Num']

@@ -1,5 +1,5 @@
 from ..utils import WUXING , HEXGRAM_TO_WUXING , DESC_HEXGRAM_TONUM , NUM_TO_HEXGRAM_STR , HEXAGRAMS_64_TO_NAME , WUXING_RELATION , RELATION_TO_LUCK
-from ..requires import Union, Optional
+from typing import Union, Optional
 
 class Interpretation:
     """
@@ -11,21 +11,28 @@ class Interpretation:
 
     def is_ti_or_yong_hexagram(self,
         original_hexagram: tuple[str, str, str, str, str, str],
-        hexagram: tuple[str, str, str, str, str, str]
+        changed_hexagram: tuple[str, str, str, str, str, str]
     ) -> dict[str, tuple[str, str, str]]:
         """
-        判断是否是体卦
+        根据本卦和变卦判断体用关系
+        判断方法:
+        如果卦象中有变爻,那么为用,否则为体
         """
-        if original_hexagram == hexagram:
-            return {"体": hexagram[:3], "用": hexagram[3:]}
-        orig_upper , orig_lower = original_hexagram[:3] , original_hexagram[3:]
-        hexagram_upper , hexagram_lower = hexagram[:3] , hexagram[3:]
-        if orig_upper == hexagram_upper:
-            return {"体": hexagram_upper, "用": hexagram_lower}
-        elif orig_lower == hexagram_lower:
-            return {"体": hexagram_lower, "用": hexagram_upper}
-        else:
-            return {}
+        ti_or_yong = {}
+            # 判断哪个爻变了
+        for i in range(6):
+            if original_hexagram[i] != changed_hexagram[i]:
+                # 如果找到了变爻，则开始拆分
+                if i <= 3:
+                    # 取上卦
+                    ti_or_yong['体'] = original_hexagram[:3] # 体
+                    ti_or_yong['用'] = changed_hexagram[3:] # 用
+                else:
+                    # 取下卦
+                    ti_or_yong["体"] = original_hexagram[3:] # 体
+                    ti_or_yong["用"] = changed_hexagram[:3] # 用
+                break
+        return ti_or_yong
     
     def get_name_of_hexagram(self, hexagram: tuple[str, str, str]) -> str:
         """
@@ -96,7 +103,7 @@ class Interpretation:
         original_hexagram: tuple[str, str, str, str, str, str],
         mutual_hexagram: tuple[str, str, str, str, str, str],
         changed_hexagram: tuple[str, str, str, str, str, str],
-        last_result: str,
+        result_string: str,
         output_to_console: bool = True, # 是否输出到控制台
         out_to_file: bool = False, # 是否输出到文件
         file_path: str = "interpretation.txt" # 文件路径
@@ -105,7 +112,7 @@ class Interpretation:
         解释卦象(解释卦象的主函数)
         """
         answer = "卦象解释如下：\n" # 解释卦象的结果
-        answer += last_result
+        answer += result_string
         original_hexagram_name = self.get_64_hexagram(original_hexagram)
         mutual_hexagram_name = self.get_64_hexagram(mutual_hexagram)
         changed_hexagram_name = self.get_64_hexagram(changed_hexagram)
@@ -118,12 +125,12 @@ class Interpretation:
         answer += f"本卦为: {original_hexagram_name}\n"
         answer += f"互卦为: {mutual_hexagram_name}\n"
         answer += f"变卦为: {changed_hexagram_name}\n"
-        hexagram_ti = self.is_ti_or_yong_hexagram(original_hexagram, original_hexagram)['体']
-        hexagram_yong = self.is_ti_or_yong_hexagram(original_hexagram, original_hexagram)['用']
+        hexagram_ti = self.is_ti_or_yong_hexagram(original_hexagram, changed_hexagram)['体']
+        hexagram_yong = self.is_ti_or_yong_hexagram(original_hexagram, changed_hexagram)['用']
         orig_result = self.interpret_luck_for_hexagram(hexagram_ti, hexagram_yong)
         answer += f"本卦为: {orig_result}卦\n"
-        chg_ti = self.is_ti_or_yong_hexagram(original_hexagram, changed_hexagram)['体']
-        chg_yong = self.is_ti_or_yong_hexagram(original_hexagram, changed_hexagram)['用']
+        chg_ti = self.is_ti_or_yong_hexagram(changed_hexagram, original_hexagram)['体']
+        chg_yong = self.is_ti_or_yong_hexagram(changed_hexagram, original_hexagram)['用']
         chg_result = self.interpret_luck_for_hexagram(chg_ti, chg_yong)
         answer += f"变卦为: {chg_result}卦\n"
         if orig_result == chg_result:

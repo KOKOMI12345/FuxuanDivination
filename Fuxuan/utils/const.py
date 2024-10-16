@@ -61,7 +61,7 @@ TIME_TO_ZHI = { v:k for k,v in ZHI_TO_TIME.items() }
 YIN = "— —" # 阴爻
 YANG = "———" # 阳爻
 # 定义先天卦数
-HEXGRAM_NUM = {
+HEXGRAM_NUM: dict[str, int] = {
     "乾": 1,
     "兑": 2,
     "离": 3,
@@ -69,11 +69,11 @@ HEXGRAM_NUM = {
     "巽": 5,
     "坎": 6,
     "艮": 7,
-    "坤": 8
+    "坤": 0 # 被整除的卦数
 }
 NUM_TO_HEXGRAM_STR = { v:k for k,v in HEXGRAM_NUM.items() }
 # 卦象的表示方法(八卦表示法)
-HEXGRAM_DESCRIPTION: dict[int, tuple] = {
+HEXGRAM_DESCRIPTION: dict[int, tuple[str, str, str]] = {
     1: (YANG, YANG, YANG),
     2: (YIN,YANG,YANG),
     3: (YANG,YIN,YANG),
@@ -82,6 +82,17 @@ HEXGRAM_DESCRIPTION: dict[int, tuple] = {
     6: (YIN, YANG, YIN),
     7: (YANG, YIN, YIN),
     8: (YIN, YIN, YIN)
+}
+
+HEXAGRAM_DESCRIPTION_STR: dict[str, tuple[str, str, str]] = {
+    "乾": (YANG, YANG, YANG),
+    "兑": (YIN, YANG, YANG),
+    "离": (YANG, YIN, YANG),
+    "震": (YIN, YIN, YANG),
+    "巽": (YANG, YANG, YIN),
+    "坎": (YIN, YANG, YIN),
+    "艮": (YANG, YIN, YIN),
+    "坤": (YIN, YIN, YIN)
 }
 
 DESC_HEXGRAM_TONUM = { v:k for k,v in HEXGRAM_DESCRIPTION.items() }
