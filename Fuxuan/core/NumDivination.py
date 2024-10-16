@@ -37,6 +37,8 @@ class NumDivination:
     def get_upper_hexagram(self) -> tuple[str, str, str]:
         """获取上卦"""
         r_num = self.num.first_num % 8
+        if r_num == 0:
+            r_num = 8
         hexagram_str = NUM_TO_HEXGRAM_STR[r_num]
         hexagram = HEXAGRAM_DESCRIPTION_STR[hexagram_str]
         return hexagram

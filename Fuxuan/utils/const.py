@@ -69,7 +69,7 @@ HEXGRAM_NUM: dict[str, int] = {
     "巽": 5,
     "坎": 6,
     "艮": 7,
-    "坤": 0 # 被整除的卦数
+    "坤": 8 # 被整除的卦数
 }
 NUM_TO_HEXGRAM_STR = { v:k for k,v in HEXGRAM_NUM.items() }
 # 卦象的表示方法(八卦表示法)
