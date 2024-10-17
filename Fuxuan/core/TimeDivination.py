@@ -1,6 +1,6 @@
 
 from ..metadata import print_logo_and_some_infomation
-from ..utils import NOW, ZHI_TO_TIME, ZHI_NUM, HEXGRAM_DESCRIPTION, YANG, YIN , get_gan_zhi_from_year , DIZHI
+from ..utils import NOW, ZHI_TO_TIME, ZHI_NUM, HEXGRAM_DESCRIPTION, YANG, YIN , DIZHI , CalculateEightChar
 from lunarcalendar import Converter, Solar, DateNotExist
 import datetime
 
@@ -147,7 +147,7 @@ class TimeDivination:
         """
         print(f"您的问题：{question}")
         hexagram = self.build_hexagram()
-        year_gan , year_zhi = get_gan_zhi_from_year(NOW.year)
+        year_gan , year_zhi = CalculateEightChar.get_year(NOW.year)
         result = f"占卜时间: {NOW.strftime('%Y-%m-%d %H:%M:%S')}({year_gan}{year_zhi}年)({self.get_current_zhi_and_num()[0]})"
         result +="对于你的问题,卦象情况如下:\n"
         result += f"本卦: \n{hexagram[0]}\n"

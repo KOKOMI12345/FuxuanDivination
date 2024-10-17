@@ -8,9 +8,9 @@ PROGRAM_NAME = "《梅花易经占卜》"
 USING_SOURCE = "https://www.bilibili.com/video/BV1Fx4y1a78m/"
 AUTHOR = "符玄(KOKOMI12345)"
 GITHUB = "https://github.com/KOKOMI12345/FuxuanDivination"
-VERSION = "0.2"
+VERSION = "0.2.1"
 PYTHON_V = f"Python {sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}"
-UPDATE = "2024-9-15 17:43:21"
+UPDATE = "2024-10-17 19:30:00"
 NOW = datetime.now()
 INFOMATION_STRING = f"@Name: {PROGRAM_NAME}\n@Author: {AUTHOR}\n@Github: {GITHUB}\n@Version: {VERSION}\n@Python: {PYTHON_V}\n@Updated: {UPDATE}\n@Time: {NOW.strftime('%Y-%m-%d %H:%M:%S')}\n@Source: {USING_SOURCE}\n"
 # Program information
